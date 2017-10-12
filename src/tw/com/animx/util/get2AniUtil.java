@@ -17,7 +17,9 @@ import tw.com.animx.mainGuiDesigner;
 public class get2AniUtil {
 
 	public static String[] REPLACECHAR = { "~", "\\*", "%", "&", ":", ">", "<", "/", "\\}", "\\{", "\\|" };
-
+	public static String JPG = "jpg";
+	public static String PNG = "png";
+	
 	public static Properties p = new Properties();
 	public static int fileCount = 0;
 
@@ -29,16 +31,19 @@ public class get2AniUtil {
 			String imgTar = target;
 			imgTar = imgTar + "-p-";
 			imgTar = imgTar + i;
-			// System.out.println(imgTar);
+//			 System.out.println(imgTar);
 			Connection conn = getConnection(imgTar);
 			Document doc = conn.get();
 			Elements elem = doc.select("#img_ad_img").select("img");
 			// "/upload/0w/5b/582/51/1.jpg"
 			String imgSrc = elem.get(0).attr("src");
-			if (imgSrc != null && imgSrc.length() > 1) {
-				String url = "http://www.2animx.com" + imgSrc;
-				// System.out.println(url);
-				result.add(url);
+			System.out.println(imgSrc);
+			if (imgSrc != null && imgSrc.length() > 1 
+					&& (imgSrc.endsWith(JPG) || imgSrc.endsWith(JPG.toUpperCase()) 
+							|| imgSrc.endsWith(PNG) || imgSrc.endsWith(PNG.toUpperCase()))) {
+//				String url = "http://www.2animx.com" + imgSrc;
+				 System.out.println(imgSrc);
+				result.add(imgSrc);
 				i++;
 			} else {
 				break;
@@ -64,7 +69,7 @@ public class get2AniUtil {
 			URL url = new URL(sURL);
 			HttpURLConnection URLConn = null;
 			URLConn = (HttpURLConnection) url.openConnection();
-			// 設定header
+			// 閮剖�eader
 			URLConn.setRequestProperty("User-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-TW; rv:1.9.1.2) "
 					+ "Gecko/20090729 Firefox/3.5.2 GTB5 (.NET CLR 3.5.30729)");
 			URLConn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -72,7 +77,7 @@ public class get2AniUtil {
 			URLConn.setRequestProperty("Accept-Charse", "Big5,utf-8;q=0.7,*;q=0.7");
 			// URLConn.setDoInput(true);
 			// URLConn.setDoOutput(true);
-			// 建立連線
+			// 撱箇���蝺�
 			URLConn.connect();
 
 			java.io.BufferedInputStream rd = new java.io.BufferedInputStream(URLConn.getInputStream());
@@ -93,7 +98,7 @@ public class get2AniUtil {
 
 			byte[] tmp = new byte[1024];
 			int len;
-			// 開始寫檔
+			// ���神瑼�
 			while ((len = rd.read(tmp)) != -1) {
 				fos.write(tmp, 0, len);
 			}
@@ -120,7 +125,7 @@ public class get2AniUtil {
 
 	public synchronized Connection getConnection(String baseUrl) {
 		Connection conn = Jsoup.connect(baseUrl);
-		// 寫入 cookie 讓需要驗證的漫畫能夠正常取得路徑
+		// 撖怠 cookie 霈�閬���憤��憭迤撣詨��楝敺�
 		conn.cookie("isAdult", "1");
 		return conn;
 	}
@@ -131,7 +136,7 @@ public class get2AniUtil {
 	}
 	
 	/**
-	 * 濾除特殊字元
+	 * 瞈暸�畾���
 	 * @param message
 	 * @return
 	 */
