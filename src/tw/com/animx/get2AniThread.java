@@ -79,10 +79,8 @@ class get2AniThread implements Runnable {
 					String fileName = fileNameSplit[fileNameSplit.length-1];
 //					System.out.println(title + ", " + targetUrl + ", " + fileName + ", " + comicData[1]);
 					for(String s:get2AniUtil.REPLACECHAR){
-						String replaceTmpStr = comicData[1]; 
-						if(StringUtils.isNotBlank(replaceTmpStr)) {
-							replaceTmpStr.replaceAll(s, "");
-							comicData[1] = replaceTmpStr;
+						if(StringUtils.isNotBlank(comicData[1])) {
+							comicData[1] = comicData[1].replaceAll(s, "");
 						}
 					}
 					util.savePhoto(targetUrl, fileName, comicData[1]);
