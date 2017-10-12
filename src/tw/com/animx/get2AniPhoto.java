@@ -27,6 +27,7 @@ public class get2AniPhoto implements Runnable {
 				Thread.sleep(3000L);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
 		while(threadcount>0){

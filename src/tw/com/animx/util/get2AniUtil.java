@@ -64,12 +64,10 @@ public class get2AniUtil {
 	public synchronized boolean savePhoto(String sURL, String fileName, String path) {
 
 		boolean doSuccess = true;
-		BufferedReader in = null;
 		try {
 			URL url = new URL(sURL);
 			HttpURLConnection URLConn = null;
 			URLConn = (HttpURLConnection) url.openConnection();
-			// 閮剖�eader
 			URLConn.setRequestProperty("User-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-TW; rv:1.9.1.2) "
 					+ "Gecko/20090729 Firefox/3.5.2 GTB5 (.NET CLR 3.5.30729)");
 			URLConn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -77,7 +75,7 @@ public class get2AniUtil {
 			URLConn.setRequestProperty("Accept-Charse", "Big5,utf-8;q=0.7,*;q=0.7");
 			// URLConn.setDoInput(true);
 			// URLConn.setDoOutput(true);
-			// 撱箇���蝺�
+			
 			URLConn.connect();
 
 			java.io.BufferedInputStream rd = new java.io.BufferedInputStream(URLConn.getInputStream());
@@ -93,39 +91,33 @@ public class get2AniUtil {
 				return true;
 			}
 			fileName = saveFileName;
-
+			
 			java.io.BufferedOutputStream fos = new java.io.BufferedOutputStream(new java.io.FileOutputStream(f));
 
-			byte[] tmp = new byte[1024];
-			int len;
-			// ���神瑼�
-			while ((len = rd.read(tmp)) != -1) {
-				fos.write(tmp, 0, len);
+			try {
+				byte[] tmp = new byte[1024];
+				int len;
+
+				while ((len = rd.read(tmp)) != -1) {
+					fos.write(tmp, 0, len);
+				}
+				fos.flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				fos.close();
 			}
-			fos.flush();
-			fos.close();
 			rd.close();
 
 		} catch (IOException e) {
 			doSuccess = false;
 			e.printStackTrace();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				in = null;
-			}
-		}
+		} 
 		return doSuccess;
 	}
 
 	public synchronized Connection getConnection(String baseUrl) {
 		Connection conn = Jsoup.connect(baseUrl);
-		// 撖怠 cookie 霈�閬���憤��憭迤撣詨��楝敺�
 		conn.cookie("isAdult", "1");
 		return conn;
 	}
@@ -136,7 +128,7 @@ public class get2AniUtil {
 	}
 	
 	/**
-	 * 瞈暸�畾���
+	 * ��謒蕭����嚙踐�蕭嚙�
 	 * @param message
 	 * @return
 	 */

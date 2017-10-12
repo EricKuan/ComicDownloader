@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -56,14 +57,14 @@ class get2AniThread implements Runnable {
 		}
 		util.logMessage("Total: " + result.size());
 		
-		//è½‰æ›ç‚ºString Array
+		//Âà´«¬°String Array
 		String[] photoList = result.toArray(new String[result.size()]);
 		int i=0;
-		//å¦‚æœ‰æŒ‡å®šä¸‹è¼‰æœ€å¾Œå¹¾è©±
+		//¦p¦³«ü©w¤U¸ü³Ì«á´X¸Ü
 		if(lastCount!=0){
 			i--;
 			i=photoList.length - lastCount;
-			//æ§åˆ¶è¶…å‡ºç¯„åœçš„è©±æ•¸
+			//±±¨î¶W¥X½d³òªº¸Ü¼Æ
 			if(i<0){
 				i=0;
 			}
@@ -79,12 +80,16 @@ class get2AniThread implements Runnable {
 					String fileName = fileNameSplit[fileNameSplit.length-1];
 //					System.out.println(title + ", " + targetUrl + ", " + fileName + ", " + comicData[1]);
 					for(String s:get2AniUtil.REPLACECHAR){
-						comicData[1].replaceAll(s, "");
+						String replaceTmpStr = comicData[1]; 
+						if(StringUtils.isNotBlank(replaceTmpStr)) {
+							replaceTmpStr.replaceAll(s, "");
+							comicData[1] = replaceTmpStr;
+						}
 					}
 					util.savePhoto(targetUrl, fileName, comicData[1]);
 				}
 				String[] end = comicData[1].split("/");
-				String chapterOutput =  end[end.length-1] + " ä¸‹è¼‰å®Œæˆ"; 
+				String chapterOutput =  end[end.length-1] + " ¤U¸ü§¹¦¨"; 
 				util.logMessage(chapterOutput);
 			} catch (IOException e) {
 				e.printStackTrace();
