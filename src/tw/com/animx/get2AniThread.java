@@ -44,7 +44,7 @@ class get2AniThread implements Runnable {
 		Connection conn = util.getConnection(url);
 		Document doc = conn.get();
 		Elements elem = doc.select("#oneCon1").select("li");
-//		System.out.println(new String(elem.toString().getBytes("Big5"), "UTF-8"));
+//		System.out.println(new String(elem.toString().getBytes("UTF-8"), "UTF-8"));
 		Set<String> result  = new LinkedHashSet<String>();
 		for (Element obj : elem) {
 			String tagetUrl = obj.select("a").attr("href");
@@ -70,10 +70,10 @@ class get2AniThread implements Runnable {
 		}
 		util.logMessage("Downlod : " + (i+1) + " ~ " + result.size());
 		for (;i<photoList.length;i++) {
-//			System.out.println("target= " + target);
 			try {
 				String[] comicData = photoList[i].split("_");
 				ArrayList<String> urlSet = util.getPhotoUrl(comicData[0]);
+				int countPhoto = 1;
 				for (String targetUrl : urlSet) {
 					String[] fileNameSplit =  targetUrl.split("/");
 					String fileName = fileNameSplit[fileNameSplit.length-1];
@@ -84,12 +84,13 @@ class get2AniThread implements Runnable {
 						}
 					}
 					util.savePhoto(targetUrl, fileName, comicData[1]);
+					mainGuiDesigner.printLog(comicData[1] + " : " + urlSet.size() + "/" + countPhoto++);
+					
 				}
 				String[] end = comicData[1].split("/");
 				String chapterOutput =  end[end.length-1] + "下載完成"; 
 				util.logMessage(chapterOutput);
 			} catch (IOException e) {
-//				e.printStackTrace();
 				System.out.println(e.getMessage());
 				return;
 			}

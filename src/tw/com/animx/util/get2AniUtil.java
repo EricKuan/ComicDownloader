@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import tw.com.animx.mainGuiDesigner;
@@ -23,25 +24,23 @@ public class get2AniUtil {
 	}
 	
 	public synchronized ArrayList<String> getPhotoUrl(String target) throws IOException {
-		// http://www.2animx.com/index-look-name-%E7%9B%A3%E7%8D%84%E5%AD%B8%E5%9C%92-cid-6003-id-207901-p-1
 		int i = 1;
 		ArrayList<String> result = new ArrayList<String>();
 		while (true) {
 			String imgTar = target;
 			imgTar = imgTar + "-p-";
 			imgTar = imgTar + i;
-//			 System.out.println(imgTar);
+			 System.out.println(imgTar);
 			Connection conn = getConnection(imgTar);
 			Document doc = conn.get();
-			Elements elem = doc.select("#img_ad_img").select("img");
-			// "/upload/0w/5b/582/51/1.jpg"
-			String imgSrc = elem.get(0).attr("src");
-			System.out.println(imgSrc);
+			Element elem = doc.select("img[name=ComicPic]").first();
+			String imgSrc = null;
+			if(elem!=null) {
+				imgSrc = elem.attr("src");
+			}
 			if (imgSrc != null && imgSrc.length() > 1 
 					&& (imgSrc.endsWith(JPG) || imgSrc.endsWith(JPG.toUpperCase()) 
 							|| imgSrc.endsWith(PNG) || imgSrc.endsWith(PNG.toUpperCase()))) {
-//				String url = "http://www.2animx.com" + imgSrc;
-				 System.out.println(imgSrc);
 				result.add(imgSrc);
 				i++;
 			} else {
