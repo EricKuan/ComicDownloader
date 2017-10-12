@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>get2aniComicGUI</groupId>
 	<artifactId>get2aniComicGUI</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -41,11 +41,20 @@
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.1</version>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
+				</configuration>
+					<archive>
+						<manifest>
+							<mainClass>tw.com.animx.mainGuiDesigner</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
 				</configuration>
 			</plugin>
 		</plugins>
