@@ -26,7 +26,7 @@ public class get2AniPhoto implements Runnable {
 			try {
 				Thread.sleep(3000L);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 				throw e;
 			}
 		}
@@ -52,7 +52,8 @@ public class get2AniPhoto implements Runnable {
 			startDownload();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 }

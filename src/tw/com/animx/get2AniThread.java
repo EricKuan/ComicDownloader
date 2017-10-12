@@ -78,7 +78,7 @@ class get2AniThread implements Runnable {
 					String[] fileNameSplit =  targetUrl.split("/");
 					String fileName = fileNameSplit[fileNameSplit.length-1];
 //					System.out.println(title + ", " + targetUrl + ", " + fileName + ", " + comicData[1]);
-					for(String s:get2AniUtil.REPLACECHAR){
+					for(String s:get2AniUtil.getReplaceChar()){
 						if(StringUtils.isNotBlank(comicData[1])) {
 							comicData[1] = comicData[1].replaceAll(s, "");
 						}
@@ -89,7 +89,8 @@ class get2AniThread implements Runnable {
 				String chapterOutput =  end[end.length-1] + "下載完成"; 
 				util.logMessage(chapterOutput);
 			} catch (IOException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
+				System.out.println(e.getMessage());
 				return;
 			}
 			
@@ -104,7 +105,8 @@ class get2AniThread implements Runnable {
 			getPhoto();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		get2AniPhoto.minusThreadCount();
 	}

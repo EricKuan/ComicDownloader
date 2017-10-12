@@ -45,7 +45,8 @@ public class mainGuiDesigner {
 					mainGuiDesigner window = new mainGuiDesigner();
 					window.frmGetanicomic.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+//					e.printStackTrace();
+					System.out.println(e.getMessage());
 				}
 			}
 		});

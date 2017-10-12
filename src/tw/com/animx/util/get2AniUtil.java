@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -15,13 +14,14 @@ import tw.com.animx.mainGuiDesigner;
 
 public class get2AniUtil {
 
-	public static String[] REPLACECHAR = { "~", "\\*", "%", "&", ":", ">", "<", "/", "\\}", "\\{", "\\|" };
-	public static String JPG = "jpg";
-	public static String PNG = "png";
-	
-	public static Properties p = new Properties();
-	public static int fileCount = 0;
+	private final static String[] REPLACECHAR = { "~", "\\*", "%", "&", ":", ">", "<", "/", "\\}", "\\{", "\\|" };
+	public final static String JPG = "jpg";
+	public final static String PNG = "png";
 
+	public static String[] getReplaceChar() {
+		return REPLACECHAR;
+	}
+	
 	public synchronized ArrayList<String> getPhotoUrl(String target) throws IOException {
 		// http://www.2animx.com/index-look-name-%E7%9B%A3%E7%8D%84%E5%AD%B8%E5%9C%92-cid-6003-id-207901-p-1
 		int i = 1;
@@ -102,7 +102,8 @@ public class get2AniUtil {
 				}
 				fos.flush();
 			} catch (Exception e) {
-				e.printStackTrace();
+//				e.printStackTrace();
+				System.out.println(e.getMessage());
 			} finally {
 				fos.close();
 			}
@@ -110,7 +111,8 @@ public class get2AniUtil {
 
 		} catch (IOException e) {
 			doSuccess = false;
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} 
 		return doSuccess;
 	}
