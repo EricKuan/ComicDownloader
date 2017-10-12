@@ -57,14 +57,13 @@ class get2AniThread implements Runnable {
 		}
 		util.logMessage("Total: " + result.size());
 		
-		//Âà´«¬°String Array
+		//åœ–ç‰‡è·¯å¾‘ String Array
 		String[] photoList = result.toArray(new String[result.size()]);
 		int i=0;
-		//¦p¦³«ü©w¤U¸ü³Ì«á´X¸Ü
+		//è¨ˆç®—æ˜¯å¦å¤§æ–¼æ¼«ç•«ç¸½æ•¸é‡
 		if(lastCount!=0){
 			i--;
 			i=photoList.length - lastCount;
-			//±±¨î¶W¥X½d³òªº¸Ü¼Æ
 			if(i<0){
 				i=0;
 			}
@@ -89,7 +88,7 @@ class get2AniThread implements Runnable {
 					util.savePhoto(targetUrl, fileName, comicData[1]);
 				}
 				String[] end = comicData[1].split("/");
-				String chapterOutput =  end[end.length-1] + " ¤U¸ü§¹¦¨"; 
+				String chapterOutput =  end[end.length-1] + "ä¸‹è¼‰å®Œæˆ"; 
 				util.logMessage(chapterOutput);
 			} catch (IOException e) {
 				e.printStackTrace();

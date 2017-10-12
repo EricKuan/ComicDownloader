@@ -128,7 +128,7 @@ public class get2AniUtil {
 	}
 	
 	/**
-	 * ��謒蕭����嚙踐�蕭嚙�
+	 * 移除非法檔案名稱字元(for windows) 
 	 * @param message
 	 * @return
 	 */

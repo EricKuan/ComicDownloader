@@ -25,12 +25,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import javax.swing.SwingConstants;
 
 public class mainGuiDesigner {
 
 	private static JTextArea ShowConsole;
-	private static JFrame frmGetanicomic;
+	private JFrame frmGetanicomic;
 	private static JTextArea textArea ;
 	private static JTextField downCount;
 	private static JButton btnStartdownload;
